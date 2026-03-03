@@ -186,7 +186,10 @@ class SamplingMolecularMetrics(nn.Module):
         print('among {} test smiles, {} are valid'.format(total_count, valid_count))
         # import pdb; pdb.set_trace()
         # fcd = FCD_eval(test_smiles_no_h, test_smiles_no_h)
-        fcd = FCD_eval(test_smiles_no_h, valid)
+        try:
+            fcd = FCD_eval(test_smiles_no_h, valid)
+        except ValueError:
+            fcd = -1
         # fcd = FCD_eval(list(self.test_smiles), list(self.test_smiles))
         # fcd = FCD_eval(list(self.train_smiles), list(self.train_smiles))
 
