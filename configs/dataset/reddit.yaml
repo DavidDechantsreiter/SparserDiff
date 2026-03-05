@@ -1,0 +1,7 @@
+name: 'reddit'
+datadir: 'data/reddit/'
+dataset_file: '500_reddit_subgraphs_200.pt'
+random_subset: null
+pin_memory: False
+molecules: False
+spectre: True

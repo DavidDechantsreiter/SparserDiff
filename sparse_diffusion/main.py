@@ -59,6 +59,15 @@ def main(cfg: DictConfig):
         domain_features = DummyExtraFeatures()
         dataloaders = datamodule.dataloaders
 
+    elif dataset_config["name"] == "reddit":
+        from datasets.reddit_dataset import RedditDataModule, RedditDatasetInfos
+
+        datamodule = RedditDataModule(cfg)
+        dataset_infos = RedditDatasetInfos(datamodule)
+        train_metrics = TrainAbstractMetricsDiscrete()
+        domain_features = DummyExtraFeatures()
+        dataloaders = datamodule.dataloaders
+
     elif dataset_config["name"] == "protein":
         from datasets import protein_dataset
 
