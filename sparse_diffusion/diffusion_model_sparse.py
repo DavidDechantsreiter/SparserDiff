@@ -33,6 +33,7 @@ from sparse_diffusion.diffusion.sample_edges_utils import (
 from sparse_diffusion.diffusion.sample_edges import (
     sample_query_edges,
     sample_non_existing_edges_batched,
+    sample_non_existing_edges_novel,
     sampled_condensed_indices_uniformly,
 )
 from sparse_diffusion.models.sign_pos_encoder import SignNetNodeEncoder
@@ -797,13 +798,21 @@ class DiscreteDenoisingDiffusion(pl.LightningModule):
 
         # combine existing and non-existing edges (both are directed, i.e. triu)
         if num_emerge_edges.max() > 0:
-            # sample non-existing edges
-            neg_edge_index = sample_non_existing_edges_batched(
-                num_edges_to_sample=num_emerge_edges,
-                existing_edge_index=dir_edge_index,
-                num_nodes=num_nodes,
-                batch=data.batch,
-            )
+            # choose sampling algorithm based on config flag
+            if self.cfg.general.use_novel_sampling:
+                neg_edge_index = sample_non_existing_edges_novel(
+                    num_edges_to_sample=num_emerge_edges,
+                    existing_edge_index=dir_edge_index,
+                    num_nodes=num_nodes,
+                    batch=data.batch,
+                )
+            else:
+                neg_edge_index = sample_non_existing_edges_batched(
+                    num_edges_to_sample=num_emerge_edges,
+                    existing_edge_index=dir_edge_index,
+                    num_nodes=num_nodes,
+                    batch=data.batch,
+                )
             neg_edge_attr = sample_non_existing_edge_attr(
                 query_edges_dist_batch=Qtb.E[:, 0, 1:],
                 num_edges_to_sample=num_emerge_edges,

@@ -1,0 +1,12 @@
+Metric,Baseline (Original),Novel (Ours),Improvement
+Degree (MMD) ↓,0.00837,0.01255,-49.9%
+Clustering (MMD) ↓,0.06482,0.11464,-76.9%
+Orbit (MMD) ↓,0.02909,0.03606,-24.0%
+Spectral (MMD) ↓,0.01637,0.01244,+24.0%
+FID ↓,221.54475,257.09944,-16.0%
+RBF MMD ↓,0.08095,0.1845,-127.9%
+Num Nodes W1 ↓,9.49007,9.39735,+1.0%
+Edge Types TV ↓,0.00705,0.01185,-68.1%
+Disconnected (%) ↓,49.00662,63.57616,-29.7%
+Mean Components ↓,2.17219,3.17881,-46.3%
+Max Components,13.0,24.0,+84.6%

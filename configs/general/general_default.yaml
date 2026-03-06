@@ -24,5 +24,7 @@ final_model_chains_to_save: 20
 
 evaluate_all_checkpoints: False
 
+use_novel_sampling: true   # true = novel Floyd+rejection, false = original batched
+
 # sampling skip
 skip: 1

@@ -188,8 +188,9 @@ class SamplingMolecularMetrics(nn.Module):
         # fcd = FCD_eval(test_smiles_no_h, test_smiles_no_h)
         try:
             fcd = FCD_eval(test_smiles_no_h, valid)
-        except ValueError:
-            fcd = -1
+        except ValueError as e:
+            print(f"FCD computation failed (likely early training): {e}. Setting FCD=NaN.")
+            fcd = float('nan')
         # fcd = FCD_eval(list(self.test_smiles), list(self.test_smiles))
         # fcd = FCD_eval(list(self.train_smiles), list(self.train_smiles))
 

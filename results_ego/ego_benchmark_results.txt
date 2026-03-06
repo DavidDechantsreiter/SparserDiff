@@ -1,0 +1,44 @@
+================================================================================
+  Edge Sampling Benchmark on Ego Graphs
+================================================================================
+
+Dataset: Ego test set (151 graphs, 50–364 nodes)
+Measurements: 10 batches × 10 runs (+ 3 warmup)
+
+SPEED COMPARISON:
+--------------------------------------------------------------------------------
+ Batch  Avg n |  Orig (ms)  Novel (ms)  Speedup |  Orig Mem  Novel Mem  Ratio
+--------------------------------------------------------------------------------
+     4  152.8 |     265.10        2.29  115.59x |     2.80MB      0.08MB  33.2x
+     8  140.4 |     467.81       14.74   31.74x |     5.11MB      0.10MB  51.4x
+    16  135.6 |     725.70       45.32   16.01x |     9.77MB      0.14MB  69.6x
+    32  135.6 |     789.75       53.68   14.71x |    19.17MB      0.24MB  78.9x
+    64  113.0 |    1015.32       82.64   12.29x |    37.89MB      0.43MB  89.1x
+================================================================================
+
+TRAINING QUALITY COMPARISON (100 epochs, Ego):
+-----------------------------------------------------------------
+Metric                          Baseline   Novel (Ours)     Change
+-----------------------------------------------------------------
+Degree MMD ↓                      0.0084         0.0125     -49.9%
+Clustering MMD ↓                  0.0648         0.1146     -76.8%
+Orbit MMD ↓                       0.0291         0.0361     -24.0%
+Spectral MMD ↓                    0.0164         0.0124     +24.0%
+FID ↓                             221.54         257.10     -16.0%
+RBF MMD ↓                         0.0810         0.1845    -127.9%
+Num Nodes W1 ↓                    9.4901         9.3973      +1.0%
+Edge Types TV ↓                   0.0070         0.0119     -68.2%
+Disconnected (%) ↓               49.0066        63.5762     -29.7%
+Mean Components ↓                 2.1722         3.1788     -46.3%
+Max Components                   13.0000        24.0000          —
+=================================================================
+
+ANALYSIS:
+  - Ego graphs are LARGE (50-399 nodes)
+  - Both algorithms use per-graph randperm/rejection, so speed is comparable
+  - Novel uses O(k) memory (k = edges to sample) vs O(max_condensed) for Original
+  - Quality: Baseline scores better on most graph metrics at 100 epochs
+    (100 epochs is early-stage for Ego; full training uses 100k epochs)
+  - Spectral MMD: Novel wins (lower is better)
+  - NumNodes W1:  Novel wins (lower is better)
+  - KEY WIN: Novel uses significantly less memory on large graphs

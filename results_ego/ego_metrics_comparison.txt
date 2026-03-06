@@ -1,0 +1,26 @@
+===========================================================================
+  SparseDiff: Baseline vs Novel Algorithm — Ego Dataset, 100 Epochs
+===========================================================================
+
+Metric                             Baseline   Novel (Ours)     Change
+----------------------------------------------------------------------
+Degree (MMD) ↓                       0.0084         0.0126     -49.9%
+Clustering (MMD) ↓                   0.0648         0.1146     -76.9%
+Orbit (MMD) ↓                        0.0291         0.0361     -24.0%
+Spectral (MMD) ↓                     0.0164         0.0124     +24.0%
+FID ↓                                221.54         257.10     -16.0%
+RBF MMD ↓                            0.0809         0.1845    -127.9%
+Num Nodes W1 ↓                       9.4901         9.3973      +1.0%
+Edge Types TV ↓                      0.0070         0.0118     -68.1%
+Disconnected (%) ↓                    49.01          63.58     -29.7%
+Mean Components ↓                    2.1722         3.1788     -46.3%
+Max Components                        13.00          24.00     +84.6%
+----------------------------------------------------------------------
+
+Dataset info:
+  • Ego: 908 social network ego-graphs (50-399 nodes, avg ~144)
+  • Train: 606, Val: 151, Test: 151 graphs
+  • Metrics: degree, clustering, orbit, spectral (MMD), neural (F1)
+  • Both models trained with identical hyperparameters except sampling
+  • SLURM cluster: WPI (L40S GPU)
+===========================================================================
