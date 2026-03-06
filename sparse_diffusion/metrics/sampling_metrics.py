@@ -50,7 +50,8 @@ class SamplingMetrics(nn.Module):
                 SBMSamplingMetrics,
                 ProteinSamplingMetrics,
                 PointCloudSamplingMetrics,
-                EgoSamplingMetrics
+                EgoSamplingMetrics,
+                RedditSamplingMetrics
             )
 
             if dataset_infos.dataset_name == "comm20":
@@ -65,6 +66,8 @@ class SamplingMetrics(nn.Module):
                 self.domain_metrics = PointCloudSamplingMetrics(dataloaders=dataloaders, test=test)
             elif dataset_infos.dataset_name == "ego":
                 self.domain_metrics = EgoSamplingMetrics(dataloaders=dataloaders, test=test)
+            elif dataset_infos.dataset_name == "reddit":
+                self.domain_metrics = RedditSamplingMetrics(dataloaders=dataloaders, test=test)
             else:
                 raise ValueError(
                     "Dataset {} not implemented".format(dataset_infos.dataset_name)

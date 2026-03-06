@@ -1059,6 +1059,15 @@ class SpectreSamplingMetrics(nn.Module):
     def reset(self):
         pass
 
+class RedditSamplingMetrics(SpectreSamplingMetrics):
+    def __init__(self, dataloaders, test):
+        super().__init__(
+            dataloaders=dataloaders,
+            compute_emd=False,
+            test=test,
+            metrics_list=['degree', 'clustering', 'orbit', 'spectre']
+        )
+
 
 class Comm20SamplingMetrics(SpectreSamplingMetrics):
     def __init__(self, dataloaders, test):
