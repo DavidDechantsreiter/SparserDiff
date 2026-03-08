@@ -35,6 +35,7 @@ class RedditGraphDataset(InMemoryDataset):
     def __init__(self, split, root, dataset_file, transform=None, pre_transform=None, pre_filter=None):
         self.split = split
         self.dataset_file = dataset_file
+        self.dataset_tag = pathlib.Path(dataset_file).stem
         super().__init__(root, transform, pre_transform, pre_filter)
         self.data, self.slices = torch.load(self.processed_paths[0], weights_only=False)
 
@@ -46,15 +47,20 @@ class RedditGraphDataset(InMemoryDataset):
 
     @property
     def raw_file_names(self):
-        return [self.dataset_file, "train_idx.pt", "val_idx.pt", "test_idx.pt"]
-
+        return [
+            self.dataset_file,
+            f"{self.dataset_tag}_train_idx.pt",
+            f"{self.dataset_tag}_val_idx.pt",
+            f"{self.dataset_tag}_test_idx.pt",
+        ]
+    
     @property
     def processed_file_names(self):
         return [
-            f"{self.split}.pt",
-            f"{self.split}_n.pickle",
-            f"{self.split}_node_types.npy",
-            f"{self.split}_bond_types.npy",
+            f"{self.dataset_tag}_{self.split}.pt",
+            f"{self.dataset_tag}_{self.split}_n.pickle",
+            f"{self.dataset_tag}_{self.split}_node_types.npy",
+            f"{self.dataset_tag}_{self.split}_bond_types.npy",
         ]
 
     def download(self):
