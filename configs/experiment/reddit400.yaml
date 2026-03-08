@@ -1,0 +1,42 @@
+# @package _global_
+general:
+    name: 'reddit'
+    gpus: 1
+    wandb: 'disabled'
+    resume: null
+    test_only: null
+    test_variance: 1
+    generated_path: null
+    check_val_every_n_epochs: 20
+    sample_every_val: 2
+    samples_to_generate: 4
+    samples_to_save: 2
+    chains_to_save: 1
+    final_model_samples_to_generate: 100
+    final_model_samples_to_save: 10
+    final_model_chains_to_save: 5
+    log_every_steps: 50
+    number_chain_steps: 50
+    evaluate_all_checkpoints: False
+    skip: 2
+
+train:
+    n_epochs: 100
+    batch_size: 8
+    lr: 0.0002
+    clip_grad: null
+    save_model: True
+    num_workers: 0
+    progress_bar: False
+    weight_decay: 1e-12
+    optimizer: adamw
+    seed: 0
+
+dataset:
+    name: 'reddit'
+    datadir: 'data/reddit/'
+    dataset_file: '300_reddit_subgraphs_400.pt'
+    random_subset: null
+    pin_memory: False
+    molecules: False
+    spectre: True
